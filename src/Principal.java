@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.math.RoundingMode;
 import java.time.temporal.ChronoUnit;
+import java.text.DecimalFormatSymbols;
 
 
 //1 - Classe Pessoa com os atribuos nome(String) e data nascimento(LocalDate) 
@@ -53,6 +54,7 @@ import java.time.temporal.ChronoUnit;
   }	
 }
 
+//2 - Classe Funcionario extende Pessoa, atributos: salario(BigDecimal) e funcão(String)
 class Funcionario extends Pessoa{
 	
 	private String funcao;
@@ -106,7 +108,10 @@ class Principal {
     public static void listarTodosFuncionarios(){
     	System.out.println("Nome\t\tData de nascimento\tSalário\t\tFunção");
         System.out.println("------          -------------------     ---------       ------------");
-        DecimalFormat formatoDecimal = new DecimalFormat("#,##0.00");
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+        otherSymbols.setDecimalSeparator(',');
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat formatoDecimal = new DecimalFormat("#,##0.00", otherSymbols);
         funcionariosList.forEach(funcionario -> {
             System.out.printf("%-15s %-23s R$ %-13s %s\n",
                     funcionario.getNome(),
@@ -127,7 +132,10 @@ class Principal {
     public static void listarNomesESalariosFuncionarios(List<Funcionario> funcionariosList) {
     	System.out.println("Nome\t\tNovo salário");
         System.out.println("-----           -------------");
-        DecimalFormat formatoDecimal = new DecimalFormat("#,##0.00");
+         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+        otherSymbols.setDecimalSeparator(',');
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat formatoDecimal = new DecimalFormat("#,##0.00", otherSymbols);
         funcionariosList.forEach(funcionario -> {
             System.out.printf("%-15s R$ %-13s\n", funcionario.getNome(), formatoDecimal.format(funcionario.getSalario()));
         });
